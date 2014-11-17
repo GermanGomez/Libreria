@@ -54,10 +54,6 @@
                         <button type="submit" class="btn-primary btn-sm">
                             <span class="glyphicon glyphicon-log-in"></span>
                             Iniciar Sesión</button>
-                        <a class="btn-link">
-                            <span class="glyphicon glyphicon-log-pencil"></span>
-                            Registrarse
-                        </a>
                     </form>
                 </div><!--/.nav-collapse -->
             </div>
@@ -66,7 +62,7 @@
         <div class="container theme-showcase" role="main">
 
             <div class="panel panel-default">
-                <?php echo $this->session->flashdata('validation_error_messages'); ?>  
+                <?php echo validation_errors("<div class='alert alert-danger' role='alert'>","</div>");?>  
                 <div class="panel-body">
                     <div class="jumbotron">
                         <h1>Sistema de Administracion Libreria</h1>

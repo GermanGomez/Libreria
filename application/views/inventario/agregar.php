@@ -32,40 +32,21 @@
                         <li><?php echo "<a href='" . base_url() . "index.php/controlador_apartado/'> Apartado</a>" ?></li>
                         <li class="active"><?php echo "<a href='" . base_url() . "index.php/controlador_inventario/'> Libros</a>" ?></li>
                         <li ><?php echo "<a href='" . base_url() . "index.php/controlador_clientes/'> Clientes</a>" ?></li>
-                        <!--<li ><?php echo "<a href='" . base_url() . "index.php/controlador_proveedor/'> Proveedores</a>" ?></li>-->
-                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_empleados/'> Empleados</a>" ?></li>
+                        <?php if($Usuario=="admin"){
+                             echo "<li><a href='" . base_url() . "index.php/controlador_empleados/'> Empleados</a></li>";
+                        }?>
+                        
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">admin <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $Nombre; ?><span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="<?php echo base_url() ?>">Cerrar Sesión</a></li>
+                                <li id="codigo_empleado_login" style="display:none"><center><?php echo $Codigo_Empleado; ?></center></li>
+                                <li><center>Usuario: <?php echo $Usuario; ?></center></li>
+                                <li><a href="<?php echo base_url() ?>"><span class="glyphicon  glyphicon-off  "></span> Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     </ul>
-                        <!--form class="navbar-form navbar-right" role="search" action="<?php echo base_url() . "index.php/controlador_inicio/iniciar_sesion" ?>"  method="post">
-                           
-                            <div class="form-group">
-                                  <div class="input-group">
-                                      <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                      <input name="usuario" type="text" class="form-control" placeholder="Usuario" autocomplete="on" size="10">
-                                  </div>
-                              </div>
-                              <div class="form-group">
-                                  <div class="input-group">
-                                      <div class="input-group-addon"><span class="glyphicon  glyphicon-asterisk "></span></div>
-                                      <input name="contrasenia" type="password" class="form-control" placeholder="Contraseña" size="10" >
-                                  </div>
-                                  
-                              </div>
-                              <button type="submit" class="btn-primary btn-sm">
-                                  <span class="glyphicon glyphicon-log-in"></span>
-                                  Iniciar Sesión</button>
-                              <a class="btn-link">
-                                  <span class="glyphicon glyphicon-log-pencil"></span>
-                                  Registrarse
-                              </a>
-                          </form-->
                 </div><!--/.nav-collapse -->
             </div>
         </div>
@@ -84,7 +65,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Código: </label>
                                     <div class="col-sm-9">
-                                        <input name="codigo" placeholder="Código del Libro ***Campo Obligatorio*** " type="text" class="form-control" value=<?php echo $Codigo; ?>>
+                                        <input name="codigo" placeholder="Código del Libro ***Campo Obligatorio*** " readonly type="text" class="form-control" value=<?php echo $Codigo; ?>>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -106,7 +87,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Edicion: </label>
+                                    <label class="col-sm-2 control-label">Edición: </label>
                                     <div class="col-sm-9">
                                         <input name="edicion" placeholder="Agente de Ventas ***Campo Obligatorio*** " type="text" class="form-control" value=<?php echo $Edicion; ?>>
                                     </div>
@@ -118,7 +99,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Pais: </label>
+                                    <label class="col-sm-2 control-label">País: </label>
                                     <div class="col-sm-9">
                                         <input name="pais" placeholder="Agente de Ventas ***Campo Obligatorio*** " type="text" class="form-control" value=<?php echo $Pais; ?>>
                                     </div>
@@ -147,7 +128,7 @@
                                         <?php echo $Boton; ?>    
                                     </div>
                                     <div class="col-sm-4"style="margin-left: 10px; margin-top: 10px">
-                                        <a class="btn-danger  btn-lg" href=<?php echo base_url() . "/index.php/controlador_inventario/" ?>><span class="glyphicon glyphicon-remove-circle"></span> Cancelar</a>
+                                        <a class="btn-danger  btn-lg" href=<?php echo base_url() . "/index.php/controlador_inventario/index/".$Codigo_Empleado ?>><span class="glyphicon glyphicon-remove-circle"></span> Cancelar</a>
                                     </div>
                                 </div>
 

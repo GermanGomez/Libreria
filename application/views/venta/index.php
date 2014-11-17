@@ -145,21 +145,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr >
-                                        <td>1</td>
-                                        <td>Sistemas</td>
-                                        <td>Porrua</td>
-                                        <td>Alberto Mendez</td>
-                                        <td>3ra. Edición</td>
-                                        <td>2005</td>
-                                        <td>México</td>
-                                        <td>10</td>
-                                        <td>200.00</td>
-                                        <td  style="text-align: match-parent"> 
-                                            <a class=" btn btn-danger  " href="#">
-                                                     <span class="glyphicon glyphicon-minus -sign"> </span> 
-                                             </a>
-                                    </tr>
+                                        
                                 </tbody>
                             </table>
                             <a class="btn-success btn-lg" href=<?php echo base_URL().'/index.php/controlador_inventario/agregar_libro'?>>

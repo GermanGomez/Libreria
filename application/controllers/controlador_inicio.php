@@ -5,50 +5,49 @@ class Controlador_inicio extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->library('encrypt');
-        $this->load->library('session');    
-        
+        $this->load->library('session');
+        $this->load->model("modelo_inicio");
+        $this->set_validaciones();
     }
     
-    
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
-	public function index()	{
-                           $this->load->view('main/index');
-                   }
+    public function index()	{
+         $this->load->view("main/index");
+    }
+                   
+    private  function set_validaciones(){
+         $this->load->library('form_validation');
+         $this->set_mensajes_validaciones();
+         $this->form_validation->set_rules('usuario', 'usuario', 'trim|required|max_length[30]');
+          $this->form_validation->set_rules('contrasenia', 'contraseña', 'trim|required|max_length[16]');                     
+    }
+                   
+    private function set_mensajes_validaciones(){
+         $this->form_validation->set_message('required', 'El campo %s es obligatorio');
+         $this->form_validation->set_message('max_length', 'El campo %s es obligatorio %s');
+    }
 
-                   public function iniciar_sesion(){
-                       $this->load->library('form_validation');
-                       $this->form_validation->set_rules('usuario', 'usuario', 'trim|required|max_length[30]');
-                       $this->form_validation->set_rules('contrasenia', 'contraseña', 'trim|required|max_length[16]');
-                       $usuario=$this->input->post('usuario');
-                       $contrasenia=$this->input->post('contrasenia');
-                       if ($this->form_validation->run() == FALSE)
-                       {
-                           redirect('/');
-                        }else{
-                            if($usuario=='admin'){
-                                redirect("controlador_empleados");
-                            }else{
-                                redirect("controlador_inventario/index/".$usuario);
-                            }
-                            
-                        }
-                        //$this->load->view('main/index');
-                   }
+    public function iniciar_sesion(){
+         $usuario=$this->input->post('usuario');
+         $contrasenia=$this->input->post('contrasenia');
+        if ($this->form_validation->run() == FALSE)
+        {
+                  $this->load->view("main/index");
+         }else{
+                 $sesion=$this->modelo_inicio->validar_usuario($usuario,$contrasenia);
+                  if($sesion==false){
+                           $this->load->view("main/index");
+                  }else{
+                           $this->es_administrador($sesion);
+                  }
+         }
+    }
+                           
+    private function es_administrador($usuario){
+         if($usuario->Usuario=='admin'){
+                  edirect("controlador_empleados/".$usuario->Codigo);
+         }else{
+                  redirect("controlador_inventario/index/".$usuario->Codigo);
+                 }
+        }
+     
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */

@@ -43,12 +43,19 @@ class Modelo_empleados extends CI_Model {
     }
             
     function get_empleado_por_id($id_empleado){
-        $query=$this->db->get_where('empleados',array('ID'=>$id_empleado));
+        $query=$this->db->get_where('empleados',array('ID'=>$id_empleado,'Activo'=>1));
         if($query->num_rows()>0){
             return $query;
         }
         return false;
     }
-    
+    function get_empleado_por_codigo($Codigo){
+        $query=$this->get_empleado_por_id($Codigo);
+        if($query->num_rows()>0){
+            $empleado=$query->result();
+            return $empleado[0];
+        }
+        return false;
+    }
   }
   ?>

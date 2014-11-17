@@ -22,49 +22,30 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo base_url() ?>" ><span class="glyphicon  glyphicon-book  "></span> SIS-LIB</a>
+                    <a class="navbar-brand" href="#" ><span class="glyphicon  glyphicon-book  "></span> SIS-LIB</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                       <!--li ><a href="<?php echo base_url() ?>">Inicio</a></li-->
                         <li><?php echo "<a href='" . base_url() . "index.php/controlador_venta/'> Venta</a>" ?></li>
-                        <li ><?php echo "<a href='" . base_url() . "index.php/controlador_apartado/'> Apartado</a>" ?></li>
-                        <li class="active"><?php echo "<a href='" . base_url() . "index.php/controlador_inventario/'> Libros</a>" ?></li>
+                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_apartado/'> Apartado</a>" ?></li>
+                        <li class="active"><?php echo "<a href='" . base_url() . "index.php/controlador_inventario/index/".$Codigo_Empleado."'> Libros</a>" ?></li>
                         <li ><?php echo "<a href='" . base_url() . "index.php/controlador_clientes/'> Clientes</a>" ?></li>
-                        <!--<li ><?php echo "<a href='" . base_url() . "index.php/controlador_proveedor/'> Proveedores</a>" ?></li>-->
-                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_empleados/'> Empleados</a>" ?></li>
+                        <?php if($Usuario=="admin"){
+                             echo "<li><a href='" . base_url() . "index.php/controlador_empleados/'> Empleados</a></li>";
+                        }?>
+                        
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">admin <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $Nombre; ?><span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="<?php echo base_url() ?>">Cerrar Sesión</a></li>
+                                <li id="codigo_empleado_login" style="display:none"><center><?php echo $Codigo_Empleado; ?></center></li>
+                                <li><center>Usuario: <?php echo $Usuario; ?></center></li>
+                                <li><a href="<?php echo base_url() ?>"><span class="glyphicon  glyphicon-off  "></span> Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     </ul>
-                        <!--form class="navbar-form navbar-right" role="search" action="<?php echo base_url() . "index.php/controlador_inicio/iniciar_sesion" ?>"  method="post">
-                           
-                            <div class="form-group">
-                                  <div class="input-group">
-                                      <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                      <input name="usuario" type="text" class="form-control" placeholder="Usuario" autocomplete="on" size="10">
-                                  </div>
-                              </div>
-                              <div class="form-group">
-                                  <div class="input-group">
-                                      <div class="input-group-addon"><span class="glyphicon  glyphicon-asterisk "></span></div>
-                                      <input name="contrasenia" type="password" class="form-control" placeholder="Contraseña" size="10" >
-                                  </div>
-                                  
-                              </div>
-                              <button type="submit" class="btn-primary btn-sm">
-                                  <span class="glyphicon glyphicon-log-in"></span>
-                                  Iniciar Sesión</button>
-                              <a class="btn-link">
-                                  <span class="glyphicon glyphicon-log-pencil"></span>
-                                  Registrarse
-                              </a>
-                          </form-->
                 </div><!--/.nav-collapse -->
             </div>
         </div>
@@ -77,7 +58,7 @@
                     </div>
                     <form  method="post" role="search" action="<?php echo base_url() . "index.php/controlador_inventario/buscar_inventario/"; ?>">
                         <div  >
-
+                            <input type="hidden" value="<?php echo $Codigo_Empleado; ?>" name="codigo_sesion">
                             <span class="label label-default">Búsqueda de Libros</span>
                             <div class="form-group">
                                 <div class="input-group">
@@ -123,10 +104,10 @@
                                     "<td>" . $inventario->Precio_Venta . "</td>" .
                                     "<td>" . $inventario->Existencias . "</td>" .
                                     "<td  style='text-align: match-parent'> 
-                                                            <a class='btn-primary btn-xs' href=" . base_url() . "index.php/controlador_inventario/editar_inventario/" . $inventario->ID . ">
+                                                            <a class='btn-primary btn-xs' href=" . base_url() . "index.php/controlador_inventario/editar_inventario/".$Codigo_Empleado."/" . $inventario->ID . ">
                                                                 <span class='glyphicon glyphicon-edit'></span> Editar
                                                             </a>
-                                                            <button data-id=" . base_url() . "index.php/controlador_inventario/eliminar_inventario/" . $inventario->ID . "  class='eliminar btn-danger btn-xs' data-toggle='modal' data-target='#myModal'>
+                                                            <button data-id=" . base_url() . "index.php/controlador_inventario/eliminar_inventario/".$Codigo_Empleado."/" . $inventario->ID . "  class='eliminar btn-danger btn-xs' data-toggle='modal' data-target='#myModal'>
                                                                  <span class='glyphicon glyphicon-trash'></span> Eliminar
                                                             </button>
                                                          </td>
@@ -136,7 +117,7 @@
                             ?>
                         </tbody>
                     </table>
-                    <a class="btn-success btn-lg" href=<?php echo base_URL() . '/index.php/controlador_inventario/agregar_inventario' ?>>
+                    <a class="btn-success btn-lg" href=<?php echo base_URL() . '/index.php/controlador_inventario/agregar_inventario/'.$Codigo_Empleado ?>>
                         <span class="glyphicon glyphicon-plus"></span> Nuevo Libro
                     </a>
                 </div>

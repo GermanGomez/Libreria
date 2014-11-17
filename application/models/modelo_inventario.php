@@ -62,6 +62,16 @@ class Modelo_inventario extends CI_Model {
         }
         return false;
     }
-    
+        function get_codigo(){
+        $query=$this->db->query("SELECT AUTO_INCREMENT AS Folio FROM INFORMATION_SCHEMA.TABLES 
+			WHERE TABLE_NAME = 'libros' AND TABLE_SCHEMA='Libreria'");
+        
+        if($query){
+            foreach($query->result() as $apartado_encabezado){
+                return $apartado_encabezado->Folio;
+            }
+        }
+        return false;
+        }
   }
   ?>
