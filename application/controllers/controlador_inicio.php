@@ -10,7 +10,7 @@ class Controlador_inicio extends CI_Controller {
         $this->set_validaciones();
     }
     
-    public function index()	{
+    public function index(){
          $this->load->view("main/index");
     }
                    
@@ -44,7 +44,7 @@ class Controlador_inicio extends CI_Controller {
                            
     private function es_administrador($usuario){
          if($usuario->Usuario=='admin'){
-                  edirect("controlador_empleados/".$usuario->Codigo);
+                  redirect("controlador_empleados/index/".$usuario->Codigo);
          }else{
                   redirect("controlador_inventario/index/".$usuario->Codigo);
                  }

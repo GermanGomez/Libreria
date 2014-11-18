@@ -6,12 +6,21 @@ class Controlador_clientes extends CI_Controller {
         $this->load->helper('url');
         $this->load->library('session'); 
         $this->load->model('modelo_clientes');
+        $this->load->model('modelo_empleados');
     }
     
-    public function index(){
-         $data['clientes']=$this->modelo_clientes->get_todos_los_clientes_activos();
-         
+    public function index($codigo){
+        $data=$this->get_datos_sesion($codigo);
+        $data['clientes']=$this->modelo_clientes->get_todos_los_clientes_activos();
          $this->load->view('clientes/index',$data);
+    }
+    
+    private function get_datos_sesion($codigo){
+        $empleado=$this->modelo_empleados->get_empleado_por_codigo($codigo);
+        $data["Usuario"]=$empleado->Usuario;
+        $data["Nombre"]=$empleado->Nombre;
+        $data["Codigo_Empleado"]=$empleado->Codigo;
+        return $data;
     }
     
     public function agregar_cliente(){

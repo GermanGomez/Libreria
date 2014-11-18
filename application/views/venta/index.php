@@ -27,48 +27,29 @@
           </button>
             <a class="navbar-brand" href="<?php echo base_url() ?>" ><span class="glyphicon  glyphicon-book  "></span> SIS-LIB</a>
         </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <!--li ><a href="<?php echo base_url() ?>">Inicio</a></li-->
-            <li class="active"><?php  echo "<a href='".base_url()."index.php/controlador_venta/'> Venta</a>"?></li>
-            <li><?php  echo "<a href='".base_url()."index.php/controlador_apartado/'> Apartado</a>"?></li>
-            <li><?php  echo "<a href='".base_url()."index.php/controlador_inventario/'> Libros</a>"?></li>
-            <li ><?php  echo "<a href='".base_url()."index.php/controlador_clientes/'> Clientes</a>"?></li>
-            <!--<li><?php  echo "<a href='".base_url()."index.php/controlador_proveedores/'> Proveedores</a>"?></li>-->
-            <li><?php  echo "<a href='".base_url()."index.php/controlador_empleados/'> Empleados</a>"?></li>
-          </ul>
-                <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">admin <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="<?php echo base_url() ?>">Cerrar Sesión</a></li>
-          </ul>
-        </li>
-      </ul>
-          <!--form class="navbar-form navbar-right" role="search" action="<?php echo base_url()."index.php/controlador_inicio/iniciar_sesion"?>"  method="post">
-             
-              <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                        <input name="usuario" type="text" class="form-control" placeholder="Usuario" autocomplete="on" size="10">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span class="glyphicon  glyphicon-asterisk "></span></div>
-                        <input name="contrasenia" type="password" class="form-control" placeholder="Contraseña" size="10" >
-                    </div>
-                    
-                </div>
-                <button type="submit" class="btn-primary btn-sm">
-                    <span class="glyphicon glyphicon-log-in"></span>
-                    Iniciar Sesión</button>
-                <a class="btn-link">
-                    <span class="glyphicon glyphicon-log-pencil"></span>
-                    Registrarse
-                </a>
-            </form-->
-        </div><!--/.nav-collapse -->
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                      <!--li ><a href="<?php echo base_url() ?>">Inicio</a></li-->
+                        <li class="active"><?php echo "<a href='" . base_url() . "index.php/controlador_venta/index/".$Codigo_Empleado."'> Venta</a>" ?></li>
+                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_apartado/index/".$Codigo_Empleado."'> Apartado</a>" ?></li>
+                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_inventario/index/".$Codigo_Empleado."'> Libros</a>" ?></li>
+                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_clientes/index/".$Codigo_Empleado."'> Clientes</a>" ?></li>
+                        <?php if($Usuario=="admin"){
+                             echo "<li><a href='" . base_url() . "index.php/controlador_empleados/index/".$Codigo_Empleado."'> Empleados</a></li>";
+                        }?>
+                        
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $Nombre; ?><span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li id="codigo_empleado_login" style="display:none"><center><?php echo $Codigo_Empleado; ?></center></li>
+                                <li><center>Usuario: <?php echo $Usuario; ?></center></li>
+                                <li><a href="<?php echo base_url() ?>"><span class="glyphicon  glyphicon-off  "></span> Cerrar Sesión</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
       </div>
     </div>
 

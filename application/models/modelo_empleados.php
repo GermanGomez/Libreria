@@ -7,7 +7,11 @@ class Modelo_empleados extends CI_Model {
     }
     
     function get_todos_los_empleados_activos(){
-        $query=$this->db->get_where('empleados',array('Activo'=>1));
+        $this->db->select('*');
+        $this->db->from('empleados');
+        $this->db->where('Activo','1');
+        $this->db->where_not_in('Codigo','0000');
+        $query=$this->db->get();
         if($query->num_rows()>0){
             return $query;
         }
@@ -49,8 +53,9 @@ class Modelo_empleados extends CI_Model {
         }
         return false;
     }
+    
     function get_empleado_por_codigo($Codigo){
-        $query=$this->get_empleado_por_id($Codigo);
+        $query=$this->db->get_where('empleados',array('Codigo'=>$Codigo,'Activo'=>1));
         if($query->num_rows()>0){
             $empleado=$query->result();
             return $empleado[0];

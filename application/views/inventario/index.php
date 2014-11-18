@@ -8,6 +8,8 @@
         </style>
         <script src="<?php $base_url ?>/libreria/assets/js/jquery-1.11.1.js"></script>
         <script src="<?php $base_url ?>/libreria/assets/js/bootstrap.min.js"></script>
+                <script src="<?php $base_url?>/libreria/assets/js/jquery.min.js"></script>
+        <script  src="<?php $base_url?>/libreria/assets/js/noty/packaged/jquery.noty.packaged.min.js"></script>
         <script src="<?php $base_url ?>/libreria/assets/js/inventario/eliminar_inventario.js"></script>
         <title>Sistema de Libreria</title>
     </head>
@@ -27,12 +29,12 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                       <!--li ><a href="<?php echo base_url() ?>">Inicio</a></li-->
-                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_venta/'> Venta</a>" ?></li>
-                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_apartado/'> Apartado</a>" ?></li>
+                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_venta/index/".$Codigo_Empleado."'> Venta</a>" ?></li>
+                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_apartado/index/".$Codigo_Empleado."'> Apartado</a>" ?></li>
                         <li class="active"><?php echo "<a href='" . base_url() . "index.php/controlador_inventario/index/".$Codigo_Empleado."'> Libros</a>" ?></li>
-                        <li ><?php echo "<a href='" . base_url() . "index.php/controlador_clientes/'> Clientes</a>" ?></li>
+                        <li ><?php echo "<a href='" . base_url() . "index.php/controlador_clientes/index/".$Codigo_Empleado."'> Clientes</a>" ?></li>
                         <?php if($Usuario=="admin"){
-                             echo "<li><a href='" . base_url() . "index.php/controlador_empleados/'> Empleados</a></li>";
+                             echo "<li><a href='" . base_url() . "index.php/controlador_empleados/index/".$Codigo_Empleado."'> Empleados</a></li>";
                         }?>
                         
                     </ul>
@@ -58,7 +60,7 @@
                     </div>
                     <form  method="post" role="search" action="<?php echo base_url() . "index.php/controlador_inventario/buscar_inventario/"; ?>">
                         <div  >
-                            <input type="hidden" value="<?php echo $Codigo_Empleado; ?>" name="codigo_sesion">
+                            <input type="hidden" value="<?php echo $Codigo_Empleado; ?>" name="codigo_sesion" id="codigo_sesion">
                             <span class="label label-default">Búsqueda de Libros</span>
                             <div class="form-group">
                                 <div class="input-group">
@@ -72,7 +74,7 @@
                         </div>
                     </form>
                     <span class="label label-default">Catalogo de Libros</span>
-                    <table class="table table-bordered">
+                    <table id="tabla_inventario" class="table table-bordered">
                         <thead>
                             <tr class="active">
                                 <th>Código</th>
@@ -102,14 +104,17 @@
                                     "<td>" . $inventario->Pais . "</td>" .
                                     "<td>" . $inventario->Costo . "</td>" .
                                     "<td>" . $inventario->Precio_Venta . "</td>" .
-                                    "<td>" . $inventario->Existencias . "</td>" .
-                                    "<td  style='text-align: match-parent'> 
+                                    "<td id='edit_ext' class='".base_url()."'><center>" . $inventario->Existencias 
+                                    . " <a id='btn_existencias_". $inventario->Codigo."' class='btn-info btn-xs' href='javascript:editar_existencia(". $inventario->Codigo .",". $inventario->Existencias .")'>
+                                                                <span class='glyphicon glyphicon-pencil'></span></a></center></td>" .
+                                    "<td  style='text-align: match-parent' > 
                                                             <a class='btn-primary btn-xs' href=" . base_url() . "index.php/controlador_inventario/editar_inventario/".$Codigo_Empleado."/" . $inventario->ID . ">
                                                                 <span class='glyphicon glyphicon-edit'></span> Editar
                                                             </a>
                                                             <button data-id=" . base_url() . "index.php/controlador_inventario/eliminar_inventario/".$Codigo_Empleado."/" . $inventario->ID . "  class='eliminar btn-danger btn-xs' data-toggle='modal' data-target='#myModal'>
                                                                  <span class='glyphicon glyphicon-trash'></span> Eliminar
-                                                            </button>
+                                                            </button><br>
+                                                            
                                                          </td>
                                                          </tr>";
                                 }

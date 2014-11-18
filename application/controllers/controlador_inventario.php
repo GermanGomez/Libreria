@@ -229,5 +229,10 @@ class controlador_inventario extends CI_Controller {
         $this->modelo_inventario->eliminar_inventario($id);
         redirect('controlador_inventario/index/'.$codigo);
     }
-
+    public function editar_existencia(){
+        $codigo_empleado=$this->input->post("codigo_empleado");
+        $existencia=$this->input->post("nueva_existencia");
+        $codigo_libro=$this->input->post("codigo_libro");
+        $this->modelo_inventario->editar_inventario($codigo_libro,array("Existencias"=>$existencia));
+    }
 }
