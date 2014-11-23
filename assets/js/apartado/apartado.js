@@ -184,29 +184,44 @@ function apartar_libro(){
     var noty;
     var validacion_cliente=validar_cliente();
     var validacion_tabla=validar_tabla_apartado(table);
-    var validacion_cantidad=validar_cantidad(table)
-        if(   validacion_cliente &&  validacion_tabla && validacion_cantidad){
+    var validacion_cantidad=validar_cantidad(table);
+    if(   validacion_cliente &&  validacion_tabla && validacion_cantidad){
             $.ajax({
                 type: "POST",
                 url: base_url+'index.php/controlador_apartado/registrar_apartado',
                 data: {codigo_cliente:document.getElementById("cliente").value, 
                           codigo_empleado:document.getElementById("empleado").value,
-                          folio:document.getElementById("folio").value,},
+                          folio:document.getElementById("folio").value,tabla_apartado:tabla_apartado_toJSON()},
                 datatype: 'html',
                 cache: false,
                 beforeSend: function(){
-                              noty=show_noty('center','information','Buscando cliente',0,true);
+                              noty=show_noty('center','information','Apartando Libros',0,true);
                  },
                  error: function(){
-                      show_noty('center','error','Error en la búsqueda',1500,true);
+                      show_noty('center','error','Error en el apartado',1500,true);
                 },
                 success: function(data){
-
                      noty.close();
+                     window.location.assign(base_url+"index.php/controlador_apartado/index/"+document.getElementById("empleado").value);
                 }
             });
-            alert('entro');
         }
+  }
+  
+  function tabla_apartado_toJSON(){
+          try {
+            var table = document.getElementById('tabla_apartado');
+            var rowCount = table.rows.length;
+            var arreglo=[];
+            for(var i=1; i<rowCount; i++) {
+                var row = table.rows[i];
+                var code = row.cells[0].innerHTML;
+                 arreglo[i-1]={codigo_libro:row.cells[0].innerHTML,nombre_libro: row.cells[1].innerHTML, cantidad_apartado:row.cells[4].childNodes[0].value};
+              }
+            }catch(e) {
+                show_noty('topRight','error',""+e,1500,true);
+            }
+            return arreglo;
   }
   function validar_tabla_apartado(table){
       if(table.rows.length>1){
@@ -229,11 +244,11 @@ function apartar_libro(){
               var fila=table.rows[i];
               var cantidad=fila.cells[4].childNodes[0].value;
               var existencia=fila.cells[3].innerHTML;
-              if(cantidad<=0){
+              if(Number(cantidad)<=0){
                    show_noty('center','error','El libro '+fila.cells[1].innerHTML+' no se puede apartar con una cantidad de cero o estar en blanco',3000,false);
                   bandera= false;
               }
-              if(cantidad>existencia){
+              if(Number(cantidad)>Number(existencia)){
                   show_noty('center','error','El libro '+fila.cells[1].innerHTML+' no puede apartar una cantidad mayor a la existencia',3000,false);
                   bandera= false;
               }

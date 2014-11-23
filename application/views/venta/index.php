@@ -64,7 +64,7 @@
                             <div style="border-color: #666; border-width: 1px; border-style: solid; width: 70%; -webkit-border-radius:16px;" >
                                     <div class="form-group" style="margin-top: 10px; margin-left: 10px">
                                        <div class="input-group"> <span class="input-group-addon">Folio</span>
-                                           <input name="folio" type="text" placeholder="Folio" autocomplete="on" readonly value="<?php echo $Folio?>">
+                                           <input id="folio" name="folio" type="text" placeholder="Folio" autocomplete="on" readonly value="<?php echo $Folio?>">
                                        </div>  
                                     </div>                               
                                     <div class="form-group" style="margin-left: 10px; ">
@@ -77,16 +77,23 @@
                                             <input name="hora" type="text" placeholder="Hora" autocomplete="on" value="<?php echo date("h:i:s A");?>" readonly>
                                           </div>
                                     </div>
-                                    <div class="form-group" >
-                                        <div class="col-sm-5">
+                                    <div class="form-group"  style="margin-left: 10px; ">
                                             <div class="input-group"> <span class="input-group-addon">Código empleado</span>
-                                                <input name="empleado" type="text" placeholder="Código empleado" autocomplete="on" readonly value="<?php echo $Codigo_Empleado;?>" >
+                                                <input id='empleado' name="empleado" type="text" placeholder="Código empleado" autocomplete="on" readonly value="<?php echo $Codigo_Empleado;?>" >
                                             </div>
+                                        <div>
+                                            <h2><?php echo "Usuario: ".$Usuario?></h2>
+                                            <h2><?php echo "Nombre: ".$Nombre?></h2>
                                         </div>
-                                            <div class="input-group"> <span class="input-group-addon">Código cliente</span>
-                                            <input name="cliente" type="text" placeholder="Código cliente" autocomplete="on" >
+                                    </div>
+                                    <div class="form-group"  style="margin-left: 10px; ">
+                                           <div class="input-group"> <span class="input-group-addon">Código cliente</span>
+                                               <input name="cliente" id="cliente" type="text" placeholder="Código cliente" autocomplete="on" class="<?php echo base_url();?>" >
+                                               <a id="buscar_cliente" class=" btn btn-warning btn-xs" href="javascript:buscar_cliente();" >
+                                                  <strong> <span class="glyphicon glyphicon-search"> </span> Buscar</strong>
+                                                </a>
                                           </div>
-                                        
+                                        <div id="resultado_cliente"></div>
                                     </div>
                                 <div class="form-group" style="margin-left: 10px; " >
                                             <div class="input-group"> <span class="input-group-addon">Código libro</span>
@@ -98,43 +105,56 @@
                                             <div id="resultado_libro"></div>
                                     </div>
                                 <div class="form-group" style="margin-left: 10px; ">
-                                        <div class="input-group"> <span class="input-group-addon">Código apartado</span>
-                                            <input  id="apartado" name="apartado" type="text" placeholder="Código apartado" autocomplete="on"  class="<?php echo base_url();?>">
-                                              <a class=" btn btn-warning btn-xs" href="javascript:buscar_apartado();" >
-                                                  <strong> <span class="glyphicon glyphicon-search"> </span> Buscar</strong>
-                                                </a>
-                                          </div>
                                     <div id="resultado_apartado"></div>
                                 </div>
                                 
                             </div>
+                            <div style="text-align: right">
+                                <a class="btn-info btn-lg" href=<?php echo base_URL().'/index.php/controlador_venta/lista_ventas/'.$Codigo_Empleado?>>
+                            <span class="glyphicon glyphicon-list-alt"></span> Todas las Ventas
+                            </a>
+                            </div>
                             <br>
                             <span class="label label-default">Listado de Libros</span>
-                            <table class="table table-bordered">
+                            <table id="tabla_venta" class="table table-bordered">
                                 <thead>
                                     <tr class="active">
-                                        <th>#</th>
+                                        <th>Código</th>
                                         <th>Nombre</th>
-                                        <th>Editorial</th>
-                                        <th>Autor</th>
-                                        <th>Edición</th>
-                                        <th>Año</th>
-                                        <th>País</th>
-                                        <th>Existencia</th>
                                         <th>Precio</th>
-                                        <th>Acciones</th>
+                                        <th>Existencias</th>
+                                        <th>Cantidad</th>
+                                        <th>Monto</th>
+                                        <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                         
                                 </tbody>
                             </table>
-                            <a class="btn-success btn-lg" href=<?php echo base_URL().'/index.php/controlador_inventario/agregar_libro'?>>
-                            <span class="glyphicon glyphicon-usd"></span> Realizar Venta
-                            </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn-danger btn-lg" href=<?php echo base_URL().'/index.php/controlador_inventario/agregar_libro'?>>
-                            <span class="glyphicon glyphicon-remove"></span> Cancelar
-                            </a>
+
+                           <div class="form-group"  style="margin-left: 10px; ">
+                               <div class="col-sm-3">
+                                    <a class="btn-success btn-lg" href="javascript:realizar_venta();">
+                                    <span class="glyphicon glyphicon-usd"></span> Realizar Venta
+                                    </a>
+                                </div>
+                               <div class="col-sm-6">
+                                   <a class="btn-danger btn-lg" href=<?php echo base_URL().'/index.php/controlador_venta/index/'.$Codigo_Empleado?>>
+                                     <span class="glyphicon glyphicon-remove"></span> Cancelar
+                                    </a>
+                               </div>
+                                    <div class="input-group" > <span class="input-group-addon">IVA</span>
+                                              <input name="iva" id='iva' type="text" placeholder="IVA" autocomplete="on" readonly >
+                                     </div>
+                                     
+                              </div>
+                            <div class="col-sm-9"></div>
+                                <div class="form-group"  style="margin-left: 10px; ">
+                                    <div class="input-group"> <span class="input-group-addon">Total</span>
+                                              <input name="total" id='total' type="text" placeholder="Total" autocomplete="on" readonly >
+                                     </div>
+                              </div>
                         </div>
                   </div>
 <p class="footer"><center>© 2014 Universidad Veracruzana. Todos los Derechos Reservados</center></p>

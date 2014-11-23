@@ -7,6 +7,7 @@ class Controlador_clientes extends CI_Controller {
         $this->load->library('session'); 
         $this->load->model('modelo_clientes');
         $this->load->model('modelo_empleados');
+        $this->set_validaciones();
     }
     
     public function index($codigo){
@@ -18,56 +19,49 @@ class Controlador_clientes extends CI_Controller {
     private function get_datos_sesion($codigo){
         $empleado=$this->modelo_empleados->get_empleado_por_codigo($codigo);
         $data["Usuario"]=$empleado->Usuario;
-        $data["Nombre"]=$empleado->Nombre;
+        $data["Nombre_Empleado"]=$empleado->Nombre;
         $data["Codigo_Empleado"]=$empleado->Codigo;
         return $data;
     }
     
-    public function agregar_cliente(){
-//activar_validaciones();
-//        $this->load->view('clientes/agregar');
-         $this->load->library('form_validation');
-         $this->form_validation->set_rules('codigo', 'código', 'required|is_natura|max_length[10]|min_length[1]');
-         $this->form_validation->set_rules('nombre','nombre','required');
-         $this->form_validation->set_rules('telefono','teléfono','required|is_natural|max_length[10]|min_length[10]');
-         $this->form_validation->set_rules('direccion','dirección','required');
-         $this->form_validation->set_rules('correo','correo','required|valid_email');
-         
-         $this->form_validation->set_message('required','El campo %s es obligatorio');
-        $data['Titulo']="Registro de  clientes";
-        $data['Controlador']=base_url()."index.php/controlador_clientes/agregar_cliente";
-        $data['Codigo']=$this->input->post('codigo');
+    private function get_post_cliente($codigo){
+        $data=$this->get_datos_sesion($codigo);
+        $data['Codigo']=$this->modelo_clientes->get_codigo();//$this->input->post('codigo');
         $data['Nombre']=$this->input->post('nombre');
         $data['Telefono']=$this->input->post('telefono');
         $data['Direccion']=$this->input->post('direccion');
         $data['Correo']=$this->input->post('correo');
+        return $data;
+    }
+    public function agregar_cliente($codigo){
+        $data=$this->get_post_cliente($codigo);
+        $data['Titulo']="Registro de  clientes";
+        $data['Controlador']=base_url()."index.php/controlador_clientes/agregar_cliente/".$codigo;
         $data['Boton']=" <button class='btn-success  btn-lg' type='submit'><span class='glyphicon glyphicon-floppy-disk'></span> Agregar</button>";
-        
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('clientes/agregar',$data);
         }else{
             $this->modelo_clientes->insert_cliente(array(
                 'Codigo'=>$data['Codigo'],
                 'Nombre'=>$data['Nombre'],'Telefono'=>$data['Telefono'],'Direccion'=>$data['Direccion'],'Correo'=>$data['Correo']));
-            redirect('controlador_clientes');   
+            redirect('controlador_clientes/index/'.$codigo);   
          }
     }
-   
-    public function editar_cliente($id_cliente='', $bandera=TRUE){
-        if($id_cliente!=""){
+   private function set_validaciones(){
             $this->load->library('form_validation');
+            $this->set_mensajes_validacion();
             $this->form_validation->set_rules('codigo', 'código', 'required|is_natura|max_length[10]|min_length[1]');
             $this->form_validation->set_rules('nombre','nombre','required');
             $this->form_validation->set_rules('telefono','teléfono','required|is_natural|max_length[10]|min_length[1]');
             $this->form_validation->set_rules('direccion','dirección','required');
             $this->form_validation->set_rules('correo','correo','required|valid_email');
-         
-            $this->form_validation->set_message('required','El campo %s es obligatorio');
-            $data['Titulo']="Edición de  cliente";
-            $data['Controlador']=base_url()."index.php/controlador_clientes/editar_cliente/".$id_cliente."/FALSE";
-            if($bandera===TRUE){
-                    $consulta=$this->modelo_clientes->get_cliente_por_id($id_cliente);
-                    if($consulta){
+   }
+   private function set_mensajes_validacion(){
+       $this->form_validation->set_message('required','El campo %s es obligatorio');
+   }
+   private function get_cliente($consulta, $codigo){
+       $data=$this->get_datos_sesion($codigo);
+        if($consulta){
                         foreach($consulta->result() as $cliente){
                           $data['Codigo']=$cliente->Codigo;
                           $data['Nombre']=$cliente->Nombre;
@@ -75,14 +69,19 @@ class Controlador_clientes extends CI_Controller {
                           $data['Direccion']=$cliente->Direccion;
                           $data['Correo']=$cliente->Correo;
                     }
-                }                
+                }
+         return $data;
+   }
+    public function editar_cliente($id_cliente='',$codigo, $bandera=TRUE){
+        if($id_cliente!=""){
+            if($bandera===TRUE){
+                $data=$this->get_cliente($this->modelo_clientes->get_cliente_por_id($id_cliente), $codigo);
             }else{
+                $data=$this->get_post_cliente($codigo);
                 $data['Codigo']=$this->input->post('codigo');
-                $data['Nombre']=$this->input->post('nombre');
-                $data['Telefono']=$this->input->post('telefono');
-                $data['Direccion']=$this->input->post('direccion');
-                $data['Correo']=$this->input->post('correo');
             }
+            $data['Titulo']="Edición de  cliente";
+            $data['Controlador']=base_url()."index.php/controlador_clientes/editar_cliente/".$id_cliente."/".$codigo."/FALSE";
             $data['Boton']=" <button class='btn-primary  btn-lg' type='submit'><span class='glyphicon glyphicon-edit'></span> Editar</button>";        
             if ($this->form_validation->run() == FALSE) {
                 $this->load->view('clientes/agregar',$data);
@@ -90,16 +89,17 @@ class Controlador_clientes extends CI_Controller {
                 $this->modelo_clientes->editar_cliente($id_cliente,array(
                     'Codigo'=>$data['Codigo'],'Nombre'=>$data['Nombre'], 'Telefono'=>$data['Telefono'],
                     'Direccion'=>$data['Direccion'],'Correo'=>$data['Correo']));
-                redirect('controlador_clientes');   
+                redirect('controlador_clientes/index/'.$codigo);   
             }
         }else{
-            redirect('controlador_clientes');
+            redirect('controlador_clientes/index/'.$codigo);
         }
         
     }
     
     public function buscar_cliente(){
           $valor=$this->input->post('busqueda');
+          $data=$this->get_datos_sesion($this->input->post("codigo_sesion"));
           if($valor==""){
               $data['clientes']=$this->modelo_clientes->get_todos_los_clientes_activos();
           }else{
@@ -110,10 +110,10 @@ class Controlador_clientes extends CI_Controller {
                   
     }
     
-    public function eliminar_cliente($id=''){
+    public function eliminar_cliente($id='',$codigo){
        
         $this->modelo_clientes->eliminar_cliente($id);
-        redirect('controlador_clientes');
+        redirect('controlador_clientes/index/'.$codigo);
             
      }
      public function buscar_cliente_por_nombre(){

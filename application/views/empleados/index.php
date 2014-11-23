@@ -32,17 +32,17 @@
                         <li><?php echo "<a href='" . base_url() . "index.php/controlador_apartado/index/".$Codigo_Empleado."'> Apartado</a>" ?></li>
                         <li ><?php echo "<a href='" . base_url() . "index.php/controlador_inventario/index/".$Codigo_Empleado."'> Libros</a>" ?></li>
                         <li ><?php echo "<a href='" . base_url() . "index.php/controlador_clientes/index/".$Codigo_Empleado."'> Clientes</a>" ?></li>
-                        <?php if($Usuario=="admin"){
+                        <?php if($Usuario_Empleado=="admin"){
                              echo "<li class='active'><a href='" . base_url() . "index.php/controlador_empleados/index/".$Codigo_Empleado."'> Empleados</a></li>";
                         }?>
                         
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $Nombre; ?><span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $Nombre_Empleado; ?><span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li id="codigo_empleado_login" style="display:none"><center><?php echo $Codigo_Empleado; ?></center></li>
-                                <li><center>Usuario: <?php echo $Usuario; ?></center></li>
+                                <li><center>Usuario: <?php echo $Usuario_Empleado; ?></center></li>
                                 <li><a href="<?php echo base_url() ?>"><span class="glyphicon  glyphicon-off  "></span> Cerrar Sesión</a></li>
                             </ul>
                         </li>
@@ -100,10 +100,10 @@
                                                         "<td>".$empleado->Usuario."</td>".
                                                         "<td>".$empleado->Contrasenia."</td>".
                                                         "<td  style='text-align: match-parent'> 
-                                                            <a class='btn-primary btn-xs' href=". base_url()."index.php/controlador_empleados/editar_empleado/".$empleado->ID.">
+                                                            <a class='btn-primary btn-xs' href=". base_url()."index.php/controlador_empleados/editar_empleado/".$empleado->ID."/".$Codigo_Empleado.">
                                                                 <span class='glyphicon glyphicon-edit'></span> Editar
                                                             </a>
-                                                            <button data-id=". base_url()."index.php/controlador_empleados/eliminar_empleado/".$empleado->ID."  class='eliminar btn-danger btn-xs' data-toggle='modal' data-target='#myModal'>
+                                                            <button data-id=". base_url()."index.php/controlador_empleados/eliminar_empleado/".$empleado->ID."/".$Codigo_Empleado."  class='eliminar btn-danger btn-xs' data-toggle='modal' data-target='#myModal'>
                                                                  <span class='glyphicon glyphicon-trash'></span> Eliminar
                                                             </button>
                                                          </td>

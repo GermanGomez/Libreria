@@ -62,11 +62,11 @@ function guardar_existencia(codigo){
 }
 function validaciones_existencia(codigo){
     var bandera=true;
-    if($('#txt_existencias_'+codigo).val()<$('#txt_existencias_'+codigo).attr('min') && $('#txt_existencias_'+codigo).val()!=''){
+    if(Number($('#txt_existencias_'+codigo).val())<Number($('#txt_existencias_'+codigo).attr('min')) && $('#txt_existencias_'+codigo).val()!=''){
        show_noty('center','error','La nueva existencia no puede ser menor a la actual',3000,false);
        bandera=false;
     }
-    if($('#txt_existencias_'+codigo).val()>999){
+    if(Number($('#txt_existencias_'+codigo).val())>999){
         show_noty('center','error','La nueva existencia no puede ser mayor a 999',3000,false);
         bandera=false;
     }

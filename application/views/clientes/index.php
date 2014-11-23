@@ -39,7 +39,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $Nombre; ?><span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $Nombre_Empleado; ?><span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li id="codigo_empleado_login" style="display:none"><center><?php echo $Codigo_Empleado; ?></center></li>
                                 <li><center>Usuario: <?php echo $Usuario; ?></center></li>
@@ -96,10 +96,10 @@
                                                         "<td>".$cliente->Direccion."</td>".
                                                         "<td>".$cliente->Correo."</td>".
                                                         "<td  style='text-align: match-parent'> 
-                                                            <a class='btn-primary btn-xs' href=". base_url()."index.php/controlador_clientes/editar_cliente/".$cliente->ID.">
+                                                            <a class='btn-primary btn-xs' href=". base_url()."index.php/controlador_clientes/editar_cliente/".$cliente->ID."/".$Codigo_Empleado.">
                                                                 <span class='glyphicon glyphicon-edit'></span> Editar
                                                             </a>
-                                                            <button data-id=". base_url()."index.php/controlador_clientes/eliminar_cliente/".$cliente->ID."  class='eliminar btn-danger btn-xs' data-toggle='modal' data-target='#myModal'>
+                                                            <button data-id=". base_url()."index.php/controlador_clientes/eliminar_cliente/".$cliente->ID."/".$Codigo_Empleado."  class='eliminar btn-danger btn-xs' data-toggle='modal' data-target='#myModal'>
                                                                  <span class='glyphicon glyphicon-trash'></span> Eliminar
                                                             </button>
                                                          </td>
@@ -112,7 +112,7 @@
                                         ?>
                                 </tbody>
                             </table>
-                            <a class="btn-success btn-lg" href=<?php echo base_URL().'/index.php/controlador_clientes/agregar_cliente'?>>
+                            <a class="btn-success btn-lg" href=<?php echo base_URL().'/index.php/controlador_clientes/agregar_cliente/'.$Codigo_Empleado?>>
                             <span class="glyphicon glyphicon-plus"></span> Agregar cliente
                             </a>
                         </div>

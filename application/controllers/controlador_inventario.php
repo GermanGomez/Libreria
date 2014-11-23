@@ -151,7 +151,7 @@ class controlador_inventario extends CI_Controller {
     public function buscar_libro(){
         $valor = $this->input->post('busqueda');
         $libros=$this->modelo_inventario->buscar_libro($valor);
-        echo "<br><table class='table table-condensed'>
+        echo "<br><h3>Libros en Existencia</h3><table id='tabla_libro' class='table table-condensed'>
             <thead>
                            <tr class='active'>
                                 <th>Código</th>
@@ -167,14 +167,15 @@ class controlador_inventario extends CI_Controller {
                      echo "<tr>" .
                                     "<td>" . $libro->Codigo . "</td>" .
                                     "<td>" . $libro->Nombre . "</td>" .
-                                    "<td>" . $libro->Precio_Venta . "</td>" .
-                                    "<td>" . $libro->Existencias . "</td>".
-                                    "<td><input list=browsers size=2 type=number min=0 max=".$libro->Existencias.">
+                                    "<td id='precio_".$libro->Codigo."'>" . $libro->Precio_Venta . "</td>" .
+                                    "<td id='existencias_libro_".$libro->Codigo."'>" . $libro->Existencias . "</td>".
+                                    "<td style='display:none'><input id='existencias_".$libro->Codigo."' list=browsers size=2 type=number min=1 max=".$libro->Existencias.
+                                    " onchange='actualizar_montos(".$libro->Codigo.")' onkeyup='actualizar_montos(".$libro->Codigo.")'>
                                     <datalist id=browsers size=2>";
                                      for($i = 1; $i <= $libro->Existencias; $i++){
                                          echo "<option>".$i;
                                      }
-                    echo "</datalist><a class=' btn btn-success' href='#'>
+                    echo "</datalist></td><td><a class=' btn btn-success' href='javascript:agregar_libro(". $libro->Codigo.")'>
                                                      <span class='glyphicon glyphicon-plus-sign'> </span> 
                                                 </a></td></tr>";
                     
@@ -207,7 +208,7 @@ class controlador_inventario extends CI_Controller {
                                     "<td>" . $libro->Nombre . "</td>" .
                                     "<td  style='display:none'>" . $libro->Precio_Venta . "</td>" .
                                     "<td  style='display:none'>" . $libro->Existencias . "</td>".
-                                    "<td  style='display:none'><input list=browsers size=2 type=number min=0 max=".$libro->Existencias.">
+                                    "<td  style='display:none'><input list=browsers size=2 type=number min=1 max=".$libro->Existencias.">
                                     <datalist id=browsers size=2>";
                                      for($i = 1; $i <= $libro->Existencias; $i++){
                                          echo "<option>".$i;
@@ -235,4 +236,6 @@ class controlador_inventario extends CI_Controller {
         $codigo_libro=$this->input->post("codigo_libro");
         $this->modelo_inventario->editar_inventario($codigo_libro,array("Existencias"=>$existencia));
     }
+    
+    
 }

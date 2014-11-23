@@ -30,10 +30,10 @@
                       <!--li ><a href="<?php echo base_url() ?>">Inicio</a></li-->
                         <li><?php echo "<a href='" . base_url() . "index.php/controlador_venta/index/".$Codigo_Empleado."'> Venta</a>" ?></li>
                         <li><?php echo "<a href='" . base_url() . "index.php/controlador_apartado/index/".$Codigo_Empleado."'> Apartado</a>" ?></li>
-                        <li class="active"><?php echo "<a href='" . base_url() . "index.php/controlador_inventario/index/".$Codigo_Empleado."'> Libros</a>" ?></li>
+                        <li ><?php echo "<a href='" . base_url() . "index.php/controlador_inventario/index/".$Codigo_Empleado."'> Libros</a>" ?></li>
                         <li ><?php echo "<a href='" . base_url() . "index.php/controlador_clientes/index/".$Codigo_Empleado."'> Clientes</a>" ?></li>
-                        <?php if($Usuario=="admin"){
-                             echo "<li><a href='" . base_url() . "index.php/controlador_empleados/index/".$Codigo_Empleado."'> Empleados</a></li>";
+                        <?php if($Usuario_Empleado=="admin"){
+                             echo "<li class='active'><a href='" . base_url() . "index.php/controlador_empleados/index/".$Codigo_Empleado."'> Empleados</a></li>";
                         }?>
                         
                     </ul>
@@ -65,7 +65,7 @@
                   <div class="form-group">
                   <label class="col-sm-2 control-label">Código: </label>
                   <div class="col-sm-9">
-                        <input name="codigo" placeholder="Código del empleado ***Campo Obligatorio*** " type="text" class="form-control" value=<?php echo $Codigo; ?>>
+                        <input name="codigo" placeholder="Código del empleado ***Campo Obligatorio*** " readonly type="text" class="form-control" readonly value=<?php echo $Codigo; ?>>
                   </div>
                  </div>
                   <div class="form-group">
@@ -110,7 +110,7 @@
                        <?php echo $Boton; ?>    
                     </div>
                     <div class="col-sm-4"style="margin-left: 10px; margin-top: 10px">
-                        <a class="btn-danger  btn-lg" href=<?php echo base_url()."/index.php/controlador_empleados/"?>><span class="glyphicon glyphicon-remove-circle"></span> Cancelar</a>
+                        <a class="btn-danger  btn-lg" href=<?php echo base_url()."/index.php/controlador_empleados/index/".$Codigo_Empleado?>><span class="glyphicon glyphicon-remove-circle"></span> Cancelar</a>
                     </div>
                 </div>
                  

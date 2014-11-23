@@ -49,7 +49,18 @@ class Modelo_clientes extends CI_Model {
         }
         return false;
     }
-    
+    function get_cliente_por_codigo($codigo){
+        $this->db->select('*');
+        $this->db->from('clientes');
+        $this->db->where('Activo','1');
+        $this->db->where('Codigo', $codigo);
+        $query=$this->db->get();
+        if($query){
+            $cliente=$query->result();
+            return $cliente[0];
+        }
+            return false;
+    }
     function buscar_cliente_por_nombre($nombre){
         $this->db->select('*');
         $this->db->from('clientes');
@@ -58,6 +69,17 @@ class Modelo_clientes extends CI_Model {
         $query=$this->db->get();
         if($query){           
             return $query;
+        }
+        return false;
+    }
+    function get_codigo(){
+        $query=$this->db->query("SELECT AUTO_INCREMENT AS Folio FROM INFORMATION_SCHEMA.TABLES 
+			WHERE TABLE_NAME = 'Clientes' AND TABLE_SCHEMA='Libreria'");
+        
+        if($query){
+            foreach($query->result() as $apartado_encabezado){
+                return $apartado_encabezado->Folio;
+            }
         }
         return false;
     }

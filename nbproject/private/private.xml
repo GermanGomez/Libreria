@@ -5,26 +5,26 @@
             <url>application/controllers/controlador_apartado.php</url>
             <bookmark id="1">
                 <name/>
-                <line>22</line>
+                <line>32</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Applications/MAMP/htdocs/libreria/application/models/modelo_inventario.php</file>
-            <file>file:/Applications/MAMP/htdocs/libreria/application/views/inventario/agregar.php</file>
+            <file>file:/Applications/MAMP/htdocs/libreria/application/views/apartado/detalle_apartado.php</file>
             <file>file:/Applications/MAMP/htdocs/libreria/application/views/clientes/index.php</file>
+            <file>file:/Applications/MAMP/htdocs/libreria/application/views/venta/agregar.php</file>
             <file>file:/Applications/MAMP/htdocs/libreria/application/views/apartado/apartado.php</file>
             <file>file:/Applications/MAMP/htdocs/libreria/application/controllers/controlador_apartado.php</file>
             <file>file:/Applications/MAMP/htdocs/libreria/application/config/database.php</file>
+            <file>file:/Applications/MAMP/htdocs/libreria/application/models/modelo_inicio.php</file>
             <file>file:/Applications/MAMP/htdocs/libreria/application/views/venta/index.php</file>
-            <file>file:/Applications/MAMP/htdocs/libreria/application/models/modelo_venta.php</file>
-            <file>file:/Applications/MAMP/htdocs/libreria/application/controllers/controlador_inicio.php</file>
             <file>file:/Applications/MAMP/htdocs/libreria/application/views/apartado/index.php</file>
             <file>file:/Applications/MAMP/htdocs/libreria/application/controllers/controlador_inventario.php</file>
-            <file>file:/Applications/MAMP/htdocs/libreria/application/controllers/controlador_venta.php</file>
+            <file>file:/Applications/MAMP/htdocs/libreria/application/models/modelo_clientes.php</file>
             <file>file:/Applications/MAMP/htdocs/libreria/assets/js/apartado/apartado.js</file>
+            <file>file:/Applications/MAMP/htdocs/libreria/assets/js/ventas/ventas.js</file>
         </group>
     </open-files>
 </project-private>

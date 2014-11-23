@@ -54,13 +54,13 @@
 <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="page-header">
-                                <h1>Apartado</h1>
+                                <h1>Ventas</h1>
                             </div>
                             
-                            <form  method="post" role="search" action="<?php echo base_url()."index.php/controlador_apartado/buscar_apartado/";?>">
+                            <form  method="post" role="search" action="<?php echo base_url()."index.php/controlador_venta/buscar_venta/";?>">
                             <div  >
                                     <input type="hidden" value="<?php echo $Codigo_Empleado; ?>" name="codigo_sesion" id="codigo_sesion">
-                                   <span class="label label-default">Búsqueda de Libros Apartados</span>
+                                   <span class="label label-default">Búsqueda de Ventas</span>
                                    <div class="form-group">
                                    <div class="input-group">
                                         
@@ -74,7 +74,7 @@
                             </div>
                             </div>
                             </form>
-                            <span class="label label-default">Listado de Libros Apartados</span>
+                            <span class="label label-default">Listado de Ventas</span>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr class="active">
@@ -85,17 +85,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <?php if($apartados){
-                                            foreach ($apartados->result() as $apartado){
+                                        <?php if($ventas){
+                                            foreach ($ventas->result() as $venta){
                                                 echo "<tr>".
-                                                        "<td>".$apartado->Folio."</td>".
-                                                        "<td>".$apartado->Empleado."</td>".
-                                                        "<td>".$apartado->Cliente."</td>".
+                                                        "<td>".$venta->Folio."</td>".
+                                                        "<td>".$venta->Empleado."</td>".
+                                                        "<td>".$venta->Cliente."</td>".
                                                         "<td  style='text-align: match-parent'>
-                                                             <a class='btn-info btn-xs' href=". base_url()."index.php/controlador_apartado/detalle_apartado/".$apartado->Folio."/".$Codigo_Empleado.">
+                                                             <a class='btn-info btn-xs' href=". base_url()."index.php/controlador_venta/detalle_venta/".$venta->Folio."/".$Codigo_Empleado.">
                                                                 <span class='glyphicon glyphicon-eye-open'></span> Detalle
                                                             </a>
-                                                            <button data-id=". base_url()."index.php/controlador_apartado/eliminar_apartado/".$apartado->ID."/".$Codigo_Empleado."  class='eliminar btn-danger btn-xs' data-toggle='modal' data-target='#myModal'>
+                                                            <button data-id=". base_url()."index.php/controlador_venta/eliminar_venta/".$venta->ID."/".$Codigo_Empleado."  class='eliminar btn-danger btn-xs' data-toggle='modal' data-target='#myModal'>
                                                                  <span class='glyphicon glyphicon-trash'></span> Eliminar
                                                             </button>
                                                          </td>
@@ -108,8 +108,8 @@
                                         ?>
                                 </tbody>
                             </table>
-                            <a class="btn-success btn-lg" href=<?php echo base_URL().'/index.php/controlador_apartado/agregar_apartado/'.$Codigo_Empleado?>>
-                            <span class="glyphicon glyphicon-plus"></span> Apartar Libro
+                            <a class="btn-success btn-lg" href=<?php echo base_URL().'/index.php/controlador_venta/index/'.$Codigo_Empleado?>>
+                            <span class="glyphicon glyphicon-plus"></span> Realizar Venta
                             </a>
                         </div>
                   </div>
@@ -124,7 +124,7 @@
                         <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-trash"></span> Eliminar</h4>
                     </div>
                     <div class="modal-body">
-                        ¿Está seguro que desea eliminar este Libro?
+                        ¿Está seguro que desea eliminar esta venta?
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" type="button" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>  Cerrar</button>

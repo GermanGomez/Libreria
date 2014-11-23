@@ -8,7 +8,9 @@
         </style>
         <script src="<?php $base_url ?>/libreria/assets/js/jquery-1.11.1.js"></script>
         <script src="<?php $base_url ?>/libreria/assets/js/bootstrap.min.js"></script>
-        <script src="<?php $base_url ?>/libreria/assets/js/inventario/eliminar_inventario.js"></script>
+        <script src="<?php $base_url?>/libreria/assets/js/jquery.min.js"></script>
+        <script  src="<?php $base_url?>/libreria/assets/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+        <script src="<?php $base_url ?>/libreria/assets/js/apartado/apartado.js"></script>
         <title>Sistema de Libreria</title>
     </head>
     <body >
@@ -50,70 +52,54 @@
             </div>
         </div>
 
-        <div class="container theme-showcase" role="main">
+        <div class="container theme-showcase" role="main">                    
 <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="page-header">
-                                <h1>Apartado</h1>
+                                <h1>Detalle Apartado</h1>
                             </div>
-                            
-                            <form  method="post" role="search" action="<?php echo base_url()."index.php/controlador_apartado/buscar_apartado/";?>">
-                            <div  >
-                                    <input type="hidden" value="<?php echo $Codigo_Empleado; ?>" name="codigo_sesion" id="codigo_sesion">
-                                   <span class="label label-default">Búsqueda de Libros Apartados</span>
-                                   <div class="form-group">
-                                   <div class="input-group">
-                                        
-                                       
-                                       <div class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></div>
-                                        <input type="text" placeholder="Búsqueda" autocomplete="on" name="busqueda">
-                                        <button class="btn-warning btn-default">
-                                            <span class="glyphicon glyphicon-search"></span> Buscar
-                                        </button>
-                                    </div>
+                               <span class="label label-default">Datos del Apartado</span>
+                              <div  style="border-color: #666; border-width: 1px; border-style: solid; width: 40%; -webkit-border-radius:16px; margin-bottom: 30px; ">
+
+                                <div class="form-group" style="margin-left: 10px; margin-top: 15px; " >
+                                    <h1>Folio: <?php echo $Encabezado->Folio;?></h1>
+                                    <h3>Empleado <?php echo $Encabezado->Codigo_Empleado."-".$Encabezado->Usuario.": ". $Encabezado->Empleado?></h3>
+                                    <h3>Cliente <?php echo $Encabezado->Codigo_Cliente.": ". $Encabezado->Cliente?></h3>
+                                </div>
                             </div>
-                            </div>
-                            </form>
+
+
                             <span class="label label-default">Listado de Libros Apartados</span>
-                            <table class="table table-bordered">
+                            <table id='tabla_apartado' class="table table-bordered">
                                 <thead>
                                     <tr class="active">
-                                        <th>Folio</th>
-                                        <th>Empleado</th>
-                                        <th>Cliente</th>
-                                        <th>Acciones</th>
+                                    <th>Código Libro</th>
+                                    <th>Nombre</th>
+                                    <th>Cantidad</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <?php if($apartados){
-                                            foreach ($apartados->result() as $apartado){
-                                                echo "<tr>".
-                                                        "<td>".$apartado->Folio."</td>".
-                                                        "<td>".$apartado->Empleado."</td>".
-                                                        "<td>".$apartado->Cliente."</td>".
-                                                        "<td  style='text-align: match-parent'>
-                                                             <a class='btn-info btn-xs' href=". base_url()."index.php/controlador_apartado/detalle_apartado/".$apartado->Folio."/".$Codigo_Empleado.">
-                                                                <span class='glyphicon glyphicon-eye-open'></span> Detalle
-                                                            </a>
-                                                            <button data-id=". base_url()."index.php/controlador_apartado/eliminar_apartado/".$apartado->ID."/".$Codigo_Empleado."  class='eliminar btn-danger btn-xs' data-toggle='modal' data-target='#myModal'>
-                                                                 <span class='glyphicon glyphicon-trash'></span> Eliminar
-                                                            </button>
-                                                         </td>
-                                                         </tr>";
-                                            }
-                                        
-                                        
+                                    <?php if($Detalle!=false){
+                                        foreach($Detalle->result() as $libro){
+                                             echo "<tr>".
+                                                "<td>".$libro->Codigo_Libro."</td>".
+                                                "<td>".$libro->Nombre_Libro."</td>".
+                                                "<td>".$libro->Cantidad."</td>"
+                                                ."</tr>";
                                         }
-                                        
-                                        ?>
+
+                                    }?>
                                 </tbody>
                             </table>
-                            <a class="btn-success btn-lg" href=<?php echo base_URL().'/index.php/controlador_apartado/agregar_apartado/'.$Codigo_Empleado?>>
-                            <span class="glyphicon glyphicon-plus"></span> Apartar Libro
-                            </a>
+                                 <div class="form-group">
+                                    <a class="btn-primary btn-lg" href=<?php echo base_URL().'/index.php/controlador_apartado/index/'.$Codigo_Empleado?>>
+                                    <span class="glyphicon glyphicon-arrow-left"></span> Atrás
+                                    </a>
+                                     
+                                </div>
                         </div>
                   </div>
-                        <p class="footer"><center>© 2014 Universidad Veracruzana. Todos los Derechos Reservados</center></p>
+            <p class="footer"><center>© 2014 Universidad Veracruzana. Todos los Derechos Reservados</center></p>
     </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">

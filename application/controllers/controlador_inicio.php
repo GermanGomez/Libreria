@@ -10,8 +10,9 @@ class Controlador_inicio extends CI_Controller {
         $this->set_validaciones();
     }
     
-    public function index(){
-         $this->load->view("main/index");
+    public function index($scritp=false){
+         $data["script"]=$scritp;
+         $this->load->view("main/index",$data);
     }
                    
     private  function set_validaciones(){
@@ -30,12 +31,11 @@ class Controlador_inicio extends CI_Controller {
          $usuario=$this->input->post('usuario');
          $contrasenia=$this->input->post('contrasenia');
         if ($this->form_validation->run() == FALSE)
-        {
-                  $this->load->view("main/index");
+        {         $this->load->view("main/index");
          }else{
                  $sesion=$this->modelo_inicio->validar_usuario($usuario,$contrasenia);
                   if($sesion==false){
-                           $this->load->view("main/index");
+                        redirect('controlador_inicio/index/true');
                   }else{
                            $this->es_administrador($sesion);
                   }

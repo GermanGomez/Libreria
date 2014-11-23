@@ -28,12 +28,12 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                       <!--li ><a href="<?php echo base_url() ?>">Inicio</a></li-->
-                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_venta/'> Venta</a>" ?></li>
-                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_apartado/'> Apartado</a>" ?></li>
-                        <li class="active"><?php echo "<a href='" . base_url() . "index.php/controlador_inventario/'> Libros</a>" ?></li>
-                        <li ><?php echo "<a href='" . base_url() . "index.php/controlador_clientes/'> Clientes</a>" ?></li>
+                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_venta/index/".$Codigo_Empleado."'> Venta</a>" ?></li>
+                        <li><?php echo "<a href='" . base_url() . "index.php/controlador_apartado/index/".$Codigo_Empleado."'> Apartado</a>" ?></li>
+                        <li class="active"><?php echo "<a href='" . base_url() . "index.php/controlador_inventario/index/".$Codigo_Empleado."'> Libros</a>" ?></li>
+                        <li ><?php echo "<a href='" . base_url() . "index.php/controlador_clientes/index/".$Codigo_Empleado."'> Clientes</a>" ?></li>
                         <?php if($Usuario=="admin"){
-                             echo "<li><a href='" . base_url() . "index.php/controlador_empleados/'> Empleados</a></li>";
+                             echo "<li><a href='" . base_url() . "index.php/controlador_empleados/index/".$Codigo_Empleado."'> Empleados</a></li>";
                         }?>
                         
                     </ul>

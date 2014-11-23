@@ -9,11 +9,16 @@
         </style>
         <script src="<?php $base_url ?>/libreria/assets/js/jquery-1.11.1.js"></script>
         <script src="<?php $base_url ?>/libreria/assets/js/bootstrap.min.js"></script>
+        <script src="<?php $base_url?>/libreria/assets/js/jquery.min.js"></script>
+        <script  src="<?php $base_url?>/libreria/assets/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+        <script src="<?php $base_url ?>/libreria/assets/js/apartado/apartado.js"></script>
 
         <title>Sistema de Librerias</title>
     </head>
     <body >
-
+                <?php if($script){echo "<script >
+                                             show_noty('topRight','error','El usuario y/o contraseña es incorrecto verifique sus datos',5000,false);
+                                            </script>" ;}?>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
